@@ -1,8 +1,15 @@
 import boto3
 import json
 
+import json
+import os
+import sys
+
+module_path = ".."
+sys.path.append(os.path.abspath(module_path))
+
 region_name = 'us-east-1'
-bedrock = boto3.client(service_name='bedrock', region_name=region_name)
+bedrock = boto3.client(service_name='bedrock', region_name=os.environ.get("AWS_DEFAULT_REGION", None))
 model_list=bedrock.list_foundation_models()
 for x in range(len(model_list.get('modelSummaries'))):
      print(model_list.get('modelSummaries')[x]['modelId'])
